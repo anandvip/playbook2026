@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vipulanand.in — Subdomain Directory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1612;
+    --paper: #f4efe6;
+    --paper-deep: #ebe3d3;
+    --rule: #cdbfa3;
+    --accent: #b3441a;
+    --accent-soft: #d97a45;
+    --muted: #6b5f4d;
+    --green: #3a7d44;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(217,122,69,0.08), transparent 60%),
+      radial-gradient(900px 500px at 110% 110%, rgba(179,68,26,0.06), transparent 60%),
+      var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: clamp(24px, 5vw, 64px) clamp(20px, 6vw, 80px);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 0.1, 0 0 0 0 0.08, 0 0 0 0 0.05, 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    z-index: 0;
+    mix-blend-mode: multiply;
+  }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── MASTHEAD ── */
+  header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 28px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(40px, 7vw, 76px);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    font-variation-settings: "opsz" 144;
+  }
+  h1 em { font-style: italic; font-weight: 500; color: var(--accent); }
+  .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+  }
+  .meta strong { color: var(--ink); font-weight: 700; }
+
+  /* ── INTRO ── */
+  .intro {
+    font-size: clamp(15px, 1.3vw, 17px);
+    color: var(--muted);
+    max-width: 60ch;
+    margin-bottom: 56px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* ── DIRECTORY HEADER ── */
+  .directory-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0;
+  }
+  .directory-label .count { color: var(--accent); font-weight: 700; }
+
+  /* ── DIRECTORY LIST ── */
+  ol.directory {
+    list-style: none;
+    counter-reset: idx;
+    columns: 2;
+    column-gap: 56px;
+    column-rule: 1px dashed var(--rule);
+  }
+
+  ol.directory li {
+    counter-increment: idx;
+    break-inside: avoid;
+    border-bottom: 1px dotted var(--rule);
+  }
+
+  /* row = [num] [link] [copy-btn] */
+  .row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 4px;
+    transition: background 0.2s ease, padding-left 0.2s ease;
+  }
+  ol.directory li:hover .row {
+    background: var(--paper-deep);
+    padding-left: 10px;
+  }
+
+  .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+
+  /* the clickable link */
+  .row a {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    color: var(--ink);
+    min-width: 0;
+  }
+  .sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s ease;
+  }
+  .sub .domain { color: var(--muted); font-weight: 400; }
+  .arrow {
+    font-size: 11px;
+    color: var(--rule);
+    flex-shrink: 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  ol.directory li:hover .sub { color: var(--accent); }
+  ol.directory li:hover .sub .domain { color: var(--accent-soft); }
+  ol.directory li:hover .arrow { color: var(--accent); transform: translateX(3px); }
+  .row a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  /* ── COPY BUTTON ── */
+  .copy-btn {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+    white-space: nowrap;
+    /* hidden until hover — revealed on hover or on touch screens */
+    opacity: 0;
+    pointer-events: none;
+  }
+  ol.directory li:hover .copy-btn {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .copy-btn svg {
+    width: 12px; height: 12px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+  .copy-btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .copy-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* green "copied" confirmation */
+  .copy-btn.copied {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+    opacity: 1 !important;
+    pointer-events: none;
+  }
+
+  /* On touch / small screens: always show the copy button */
+  @media (max-width: 640px) {
+    ol.directory { columns: 1; }
+    header { grid-template-columns: 1fr; }
+    .meta { text-align: left; }
+    .copy-btn { opacity: 1; pointer-events: all; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 72px;
+    padding-top: 24px;
+    border-top: 2px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer .ornament { color: var(--accent); letter-spacing: 0.4em; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  header, .intro, .directory-label, ol.directory li, footer {
+    animation: rise 0.7s ease both;
+  }
+  .intro           { animation-delay: 0.10s; }
+  .directory-label { animation-delay: 0.20s; }
+  ol.directory li  { animation-delay: calc(0.25s + var(--i, 0) * 0.012s); }
+  footer           { animation-delay: 0.60s; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="eyebrow">Subdomain Index · 2026</div>
+      <h1>vipulanand<em>.in</em></h1>
+    </div>
+    <div class="meta">
+      <strong>53 entries</strong><br>
+      sourced from zone file<br>
+      updated · 2026-05-01
+    </div>
+  </header>
+
+  <p class="intro">
+    A complete directory of active subdomains. Click <em>↗</em> to open in a new tab — or hover a row and hit <em>copy</em> to grab the full <em>https://</em> URL and paste it anywhere.
+  </p>
+
+  <div class="directory-label">
+    <span>↓ Directory</span>
+    <span><span class="count">53</span> active subdomains</span>
+  </div>
+
+  <!-- SVG sprite (hidden) -->
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-copy" viewBox="0 0 24 24">
+      <rect x="9" y="9" width="13" height="13" rx="2"/>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+    </symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24">
+      <polyline points="20 6 9 17 4 12"/>
+    </symbol>
+  </svg>
+
+  <ol class="directory">
+
+    <li style="--i:1"><div class="row"><span class="num">01</span>
+      <a href="https://9.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">9<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://9.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:2"><div class="row"><span class="num">02</span>
+      <a href="https://11.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">11<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://11.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:3"><div class="row"><span class="num">03</span>
+      <a href="https://112.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">112<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://112.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:4"><div class="row"><span class="num">04</span>
+      <a href="https://2025.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">2025<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://2025.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:5"><div class="row"><span class="num">05</span>
+      <a href="https://2026.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">2026<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://2026.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:6"><div class="row"><span class="num">06</span>
+      <a href="https://aaf.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">aaf<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://aaf.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:7"><div class="row"><span class="num">07</span>
+      <a href="https://ads.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">ads<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://ads.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:8"><div class="row"><span class="num">08</span>
+      <a href="https://agritech.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">agritech<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://agritech.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:9"><div class="row"><span class="num">09</span>
+      <a href="https://blog.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">blog<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://blog.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:10"><div class="row"><span class="num">10</span>
+      <a href="https://calm.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">calm<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://calm.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:11"><div class="row"><span class="num">11</span>
+      <a href="https://cs.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">cs<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://cs.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:12"><div class="row"><span class="num">12</span>
+      <a href="https://cv.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">cv<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://cv.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:13"><div class="row"><span class="num">13</span>
+      <a href="https://decide.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">decide<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://decide.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:14"><div class="row"><span class="num">14</span>
+      <a href="https://design.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">design<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://design.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:15"><div class="row"><span class="num">15</span>
+      <a href="https://desire.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">desire<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://desire.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:16"><div class="row"><span class="num">16</span>
+      <a href="https://dp.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">dp<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://dp.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:17"><div class="row"><span class="num">17</span>
+      <a href="https://ego.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">ego<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://ego.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:18"><div class="row"><span class="num">18</span>
+      <a href="https://farm.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">farm<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://farm.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:19"><div class="row"><span class="num">19</span>
+      <a href="https://farms.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">farms<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://farms.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:20"><div class="row"><span class="num">20</span>
+      <a href="https://fd.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">fd<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://fd.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:21"><div class="row"><span class="num">21</span>
+      <a href="https://feelings.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">feelings<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://feelings.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:22"><div class="row"><span class="num">22</span>
+      <a href="https://fpg.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">fpg<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://fpg.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:23"><div class="row"><span class="num">23</span>
+      <a href="https://hpca.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">hpca<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://hpca.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:24"><div class="row"><span class="num">24</span>
+      <a href="https://inflation.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">inflation<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://inflation.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:25"><div class="row"><span class="num">25</span>
+      <a href="https://invest.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">invest<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://invest.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:26"><div class="row"><span class="num">26</span>
+      <a href="https://jar.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">jar<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://jar.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:27"><div class="row"><span class="num">27</span>
+      <a href="https://jung.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">jung<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://jung.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:28"><div class="row"><span class="num">28</span>
+      <a href="https://kp.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">kp<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://kp.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:29"><div class="row"><span class="num">29</span>
+      <a href="https://landsale.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">landsale<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://landsale.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:30"><div class="row"><span class="num">30</span>
+      <a href="https://lsb.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">lsb<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://lsb.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:31"><div class="row"><span class="num">31</span>
+      <a href="https://lsp.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">lsp<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://lsp.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:32"><div class="row"><span class="num">32</span>
+      <a href="https://maths.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">maths<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://maths.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:33"><div class="row"><span class="num">33</span>
+      <a href="https://mind.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">mind<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://mind.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:34"><div class="row"><span class="num">34</span>
+      <a href="https://mindscape.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">mindscape<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://mindscape.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:35"><div class="row"><span class="num">35</span>
+      <a href="https://msme.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">msme<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://msme.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:36"><div class="row"><span class="num">36</span>
+      <a href="https://netlify.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">netlify<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://netlify.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:37"><div class="row"><span class="num">37</span>
+      <a href="https://newlife.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">newlife<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://newlife.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:38"><div class="row"><span class="num">38</span>
+      <a href="https://notes.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">notes<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://notes.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:39"><div class="row"><span class="num">39</span>
+      <a href="https://om.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">om<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://om.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:40"><div class="row"><span class="num">40</span>
+      <a href="https://pepin.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">pepin<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://pepin.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:41"><div class="row"><span class="num">41</span>
+      <a href="https://pipeline.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">pipeline<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://pipeline.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:42"><div class="row"><span class="num">42</span>
+      <a href="https://pnb.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">pnb<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://pnb.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:43"><div class="row"><span class="num">43</span>
+      <a href="https://repo.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">repo<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://repo.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:44"><div class="row"><span class="num">44</span>
+      <a href="https://ride.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">ride<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://ride.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:45"><div class="row"><span class="num">45</span>
+      <a href="https://sabar.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">sabar<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://sabar.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:46"><div class="row"><span class="num">46</span>
+      <a href="https://self.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">self<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://self.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:47"><div class="row"><span class="num">47</span>
+      <a href="https://spend.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">spend<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://spend.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:48"><div class="row"><span class="num">48</span>
+      <a href="https://tts.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">tts<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://tts.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:49"><div class="row"><span class="num">49</span>
+      <a href="https://va.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">va<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://va.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:50"><div class="row"><span class="num">50</span>
+      <a href="https://who.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">who<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://who.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:51"><div class="row"><span class="num">51</span>
+      <a href="https://www.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">www<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://www.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:52"><div class="row"><span class="num">52</span>
+      <a href="https://yearlog.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">yearlog<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://yearlog.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+    <li style="--i:53"><div class="row"><span class="num">53</span>
+      <a href="https://yog.vipulanand.in" target="_blank" rel="noopener noreferrer"><span class="sub">yog<span class="domain">.vipulanand.in</span></span><span class="arrow">↗</span></a>
+      <button class="copy-btn" data-url="https://yog.vipulanand.in" aria-label="Copy URL"><svg><use href="#icon-copy"/></svg>copy</button>
+    </div></li>
+
+  </ol>
+
+  <footer>
+    <span>vipulanand.in &nbsp;·&nbsp; subdomain ledger</span>
+    <span class="ornament">✦ ✦ ✦</span>
+    <span>generated · 2026</span>
+  </footer>
+
+</div>
+
+<script>
+  const RESET_MS = 2000;
+
+  const ICON_COPY  = `<svg><use href="#icon-copy"/></svg>copy`;
+  const ICON_CHECK = `<svg><use href="#icon-check"/></svg>copied!`;
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const url = btn.dataset.url;
+
+      const flash = () => {
+        btn.innerHTML = ICON_CHECK;
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = ICON_COPY;
+          btn.classList.remove('copied');
+        }, RESET_MS);
+      };
+
+      try {
+        await navigator.clipboard.writeText(url);
+        flash();
+      } catch {
+        // execCommand fallback for older / non-secure contexts
+        const ta = Object.assign(document.createElement('textarea'), {
+          value: url,
+          style: 'position:fixed;opacity:0;pointer-events:none;'
+        });
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        flash();
+      }
+    });
+  });
+</script>
+</body>
+</html>
